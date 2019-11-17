@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>flex布局</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <style>
+        * {
+            list-style: none;
+            outline-style: none;
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+            border: 0
+        }
+
+        .container {
+            /* background-color: red; */
+            max-width: 1200px;
+            margin: 0 auto;
+        } 
+    </style>
+</head>
+
+<body>
+    <div id="container" style="max-width: 1200px;margin: 0 auto"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/babel">
+        class Header extends React.Component {
+            render(){
+                return <ul style={{display:'flex',justifyContent:'center',fontSize:'18px'}}>
+            <li><button style={{color:'red',padding:'1px 6px',backgroundColor:'#fff',fontWeight:'700'}}>All</button></li>
+            <li><button style={{padding:'1px 6px',backgroundColor:'#fff',fontWeight:'700'}}>JavaScript</button></li>
+            <li><button style={{padding:'1px 6px',backgroundColor:'#fff',fontWeight:'700'}}>Ruby</button></li>
+            <li><button style={{padding:'1px 6px',backgroundColor:'#fff',fontWeight:'700'}}>CSS</button></li>
+            <li><button style={{padding:'1px 6px',backgroundColor:'#fff',fontWeight:'700'}}>Python</button></li>
+        </ul>
+            }
+        }
+        class Content extends React.Component {
+            constructor(props) {
+                super(props)
+                this.state = {arr:[]}
+            }
+            async componentDidMount(){
+                const res = await axios.get('https://api.github.com/search/repositories?q=stars:%3E1&sort=stars&order=desc&type=Repositories')
+                console.log(res.data.items)
+                this.setState({
+                    arr:res.data.items
+                })
+            }
+            render() {
+                const list = this.state.arr.map((item,key)=><div style={{width:'250px', padding:'20px',backgroundColor:'#ebebeb',textAlign:'center',margin:'10px 0'}}>
+                <h3>#{key+1}</h3>
+                <img src={item.owner.avatar_url} alt="" style={{width:'150px',height:'150px',margin:'0 auto'}} />
+                <h2 style={{fontSize:'1.5em',lineHeight:'40px',fontWeight:'bold'}} ><a href="#" style={{color:'deeppink'}}>{item.owner.login}</a></h2>
+                <ul style={{textAlign:'left',lineHeight:'35px'}}>
+                    <li><i class="fa fa-user" aria-hidden="true" style={{fontSize:'23px',color:'#ffc06d',width:'42px',height:'25px',textAlign:'center'}}></i><a href="#" style={{color:'#333'}}>{item.owner.login}</a></li>
+                    <li><i class="fa fa-star" aria-hidden="true" style={{fontSize:'23px',color:'#ffd900',width:'42px',height:'25px',textAlign:'center'}}></i><a href="#" style={{color:'#333'}}>{item.stargazers_count} stars</a></li>
+                    <li><i class="fa fa-code-fork" aria-hidden="true" style={{fontSize:'23px',color:'#91c9f5',width:'42px',height:'25px',textAlign:'center'}}></i><a href="#" style={{color:'#333'}}>{item.forks_count} forks</a></li>
+                    <li><i class="fa fa-exclamation-triangle" aria-hidden="true" style={{fontSize:'23px',color:'#f38991',width:'42px',height:'25px',textAlign:'center'}} ></i><a href="#" style={{color:'#333'}}>{item.open_issues_count} open issues</a></li>
+                </ul>
+            </div>)
+                return <div style={{display:'flex',flexWrap:'wrap',justifyContent:'space-around'}}>
+                {list}
+                </div>
+            }
+        }
+        class App extends React.Component {
+            render(){
+                return <div><Header /><Content /></div>
+            }
+        }
+        ReactDOM.render(
+            <App />,
+            document.getElementById('container')
+        )
+    </script>
+</body>
+
+</html>

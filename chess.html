@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>#O</title>
     <style>
         *{
             margin:0;
@@ -155,16 +155,16 @@
             });
             let status;
             if (winner) {
-                status = '获胜者: ' + winner;
+                status = 'winner: ' + winner;
             } else {
-                status = '下一步玩家: ' + (this.state.isnext ? 'X' : 'O');
+                status = '下一步: ' + (this.state.isnext ? 'X' : 'O');
             }
             return(
                 <div style={{display:"flex",flexDirection: "row"}}>
                     <div >
                         <Qipan qizi={current.qizi} onClick={i => this.handleClick(i)}/>
                     </div>
-                    <div>
+                    <div style={{padding:"0 100px"}}>
                         <div>{status}</div>
                         <ol>{moves}</ol>
                     </div>

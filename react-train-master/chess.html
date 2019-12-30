@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>#O</title>
+    <title>井字棋</title>
     <style>
         *{
             margin:0;
@@ -21,13 +21,13 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js "></script>
     <script type="text/babel">
         const qizistyle={
-            background: "#fff",
-            border: "1px solid #999",
+            background: "white",
+            border: "1px solid green",
             float: "left",
-            fontSize: "44px",
+            fontSize: "24px",
             fontWeight: "bold",
             lineHeight: "34px",
-            height: "44px",
+            height: "34px",
             marginRight: "-1px",
             marginTop: "-1px",
             padding: 0,
@@ -146,7 +146,7 @@
             const moves = this.state.history.map((step, move) => {
                 const desc = move ?
                     'Go to move #' + move :
-                    'Go to game start';
+                    'restart';
                 return (
                     <li key={move}>
                         <button onClick={() => this.jumpTo(move)}>{desc}</button>
@@ -155,16 +155,16 @@
             });
             let status;
             if (winner) {
-                status = 'Winner: ' + winner;
+                status = '获胜者: ' + winner;
             } else {
-                status = 'Next Player: ' + (this.state.isnext ? 'X' : 'O');
+                status = '玩家下一步: ' + (this.state.isnext ? 'X' : 'O');
             }
             return(
                 <div style={{display:"flex",flexDirection: "row"}}>
                     <div >
                         <Qipan qizi={current.qizi} onClick={i => this.handleClick(i)}/>
                     </div>
-                    <div style={{padding:"0 100px"}}>
+                    <div>
                         <div>{status}</div>
                         <ol>{moves}</ol>
                     </div>

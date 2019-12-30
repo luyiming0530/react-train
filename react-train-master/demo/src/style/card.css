@@ -1,0 +1,33 @@
+.card {
+    width: 250px;
+    padding: 20px;
+    background-color: #ebebeb;
+    text-align: center;
+    margin: 10px 0;
+}
+.cardimg {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+.cardh2 {
+    font-size: 1.5em;
+    line-height: 40px;
+    font-weight: bold;
+}
+.cardul {
+    text-align: left;
+    line-height: 35px
+}
+.cardi{
+    font-size: 23px;
+    color: #ffc06d;
+    width: 42px;
+    height: 25px;
+    text-align: center
+}
+.cardmain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
